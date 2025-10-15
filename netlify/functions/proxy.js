@@ -10,22 +10,13 @@
 const ALLOWED_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"];
 const DEFAULT_TIMEOUT_MS = Number(process.env.FETCH_TIMEOUT_MS || 10000);
 
-const ALLOWED_PATHS = [
-    "/api/public/v3/recruitment/vacancies",
-    "/api/public/v3/departments",
-    "/api/public/v3/locations",
-    "/api/public/v3/employment_types"
-]
-
-// Security: require an upstream base by default
-const REQUIRE_UPSTREAM = (process.env.REQUIRE_UPSTREAM ?? "true").toLowerCase() !== "false";
-
 export async function handler(event) {
   console.log("event path", event.path);
   try {
 
+    const allowedPaths = ';' + process.env.ALLOWED_PATHS + ';' || ";;";
 
-    if (!ALLOWED_PATHS.includes(event.path)) {
+    if (allowedPaths.indexOf(';' + event.path + ';') == -1) {
         return withCors(event, {
             statusCode: 403,
             body: JSON.stringify({ error: "Path not allowed" })
@@ -67,20 +58,23 @@ export async function handler(event) {
       return preflight(event);
     }
 
-    const upstreamBase = process.env.UPSTREAM_BASE || "";
-    const forwardAuthHeader = process.env.FORWARD_AUTH_HEADER; // e.g., "Authorization" or "X-API-Key"
-    const forwardAuthValue = process.env.FORWARD_AUTH_VALUE;   // e.g., "Bearer xyz"
-    const forwardHeaders = (process.env.FORWARD_HEADERS || "")
+    const upstreamBase = process.env.UPSTREAM_BASE || "https://app.peopleforce.io";
+    const forwardAuthHeader = "X-API-Key";
+    const forwardAuthValue = process.env.PEOPLEFORCE_API_KEY;   // e.g., "Bearer xyz"
+    const forwardHeaders = (process.env.FORWARD_HEADERS || "Accept")
       .split(",")
       .map(h => h.trim())
       .filter(Boolean);
 
-    // Compute target URL
-    // Path mapping: /api/<anything> → <UPSTREAM_BASE>/<anything>
-    // If REQUIRE_UPSTREAM=false you can optionally pass ?url=https://target
     const { path } = event;
     let targetUrl = "";
 
+    if (!forwardAuthValue) {
+        return withCors(event, {
+            statusCode: 500,
+            body: JSON.stringify({ error: "PEOPLEFORCE_API_KEY not set" })
+        });
+    }
 
     if (!upstreamBase) {
         return withCors(event, {
@@ -108,11 +102,9 @@ export async function handler(event) {
       if (match) outgoingHeaders.set(h, incoming[match]);
     });
 
-    // Optional auth injection (server-side secret)
-    if (forwardAuthHeader && forwardAuthValue) {
-      outgoingHeaders.set(forwardAuthHeader, forwardAuthValue);
-    }
-
+    // Auth injection (server-side secret)
+    outgoingHeaders.set(forwardAuthHeader, forwardAuthValue);
+    
     // Pass content-type if present (helps upstream parse body)
     if (incoming["content-type"]) {
       outgoingHeaders.set("content-type", incoming["content-type"]);

@@ -5,9 +5,7 @@ A minimal, production-friendly proxy layer for browser apps, deployed on Netlify
 ## ✨ Features
 
 - CORS allowlist (`ALLOWED_ORIGINS`)
-- Upstream restriction (`UPSTREAM_BASE`)
-- Optional server-side auth injection (`FORWARD_AUTH_HEADER`/`FORWARD_AUTH_VALUE`)
-- Whitelist of forwarded headers (`FORWARD_HEADERS`)
+- Allowlist of forwarded headers (`FORWARD_HEADERS`)
 - Preflight (OPTIONS) support, JSON/text/binary response handling
 
 
@@ -20,21 +18,18 @@ A minimal, production-friendly proxy layer for browser apps, deployed on Netlify
 
 ---
 
-## ⚙️ Environment variables
+## ⚙️ Configuration
 
+For development, place these in your .env.local file 
 
-For development, place these in your netlify.toml file in the build.environment section
+When deploying, set these in **Project Configuration → Environment variables** on Netlify:
 
-Set these in **Site settings → Environment variables** on Netlify:
-
-| Variable | Required | Example | Notes |
+| Variable | Required | Notes |
 |---|---|---|---|
-| `UPSTREAM_BASE` | ✅ (unless `REQUIRE_UPSTREAM=false`) | `https://api.example.com/v1` | Base URL your frontend should call via `/api/...` |
-| `ALLOWED_ORIGINS` | Recommended | `https://app.example.com,https://localhost:5173` | Use `*` for dev; prefer explicit origins in prod |
-| `FORWARD_HEADERS` | Optional | `authorization,accept-language` | Incoming headers to pass upstream |
-| `FORWARD_AUTH_HEADER` | Optional | `Authorization` | Name of header to inject from server-side secret |
-| `FORWARD_AUTH_VALUE` | Optional | `Bearer ***` | Value paired with `FORWARD_AUTH_HEADER` |
-| `FETCH_TIMEOUT_MS` | Optional | `10000` | Upstream timeout in ms |
+| `UPSTREAM_BASE` | Optional | Default is: `https://app.peopleforce.io`  |
+| `ALLOWED_ORIGINS` | Recommended | Use this to define a comma-separated list of sites that will be allowed to use this function, or `*` in dev |
+| `FORWARD_HEADERS` | Optional |  Incoming headers to pass upstream  such as `authorization,accept-language`. Default is `Accept` ||
+| `PEOPLEFORCE_API_KEY` | Required | Set your PeopleForce API key here |
 
 
 ---
