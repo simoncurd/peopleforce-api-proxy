@@ -1,6 +1,6 @@
 # PeopleForce API Proxy
 
-A proxy application for the PeopleForce API that can be easily deployed on Netlify.
+A proxy application for the PeopleForce API that can be easily deployed on Netlify. This application allows you to make secure calls to select PeopleForce API endpoints without publishing your API Key.
 
 ## ✨ Features
 
