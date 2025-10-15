@@ -15,9 +15,8 @@ A minimal, production-friendly proxy layer for browser apps, deployed on Netlify
 
 ## 🚀 One-click Deploy
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/YOUR_USERNAME/YOUR_REPO)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/simoncurd/my-netlify-proxy)
 
-> Replace `YOUR_USERNAME/YOUR_REPO` with your GitHub repo URL before publishing this template.
 
 ---
 
