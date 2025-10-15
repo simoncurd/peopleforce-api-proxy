@@ -1,10 +1,11 @@
-# PeopleForce Proxy Template
+# PeopleForce API Proxy
 
-A proxy application for PeopleForce that can be easily deployed on Netlify.
+A proxy application for the PeopleForce API that can be easily deployed on Netlify.
 
 ## ✨ Features
 
-- Restrict callers to specific origins with the (`ALLOWED_ORIGINS`) parameter
+- Limit API calls to specific endpoints with the `ALLOWED_PATHS` parameter
+- Restrict callers to specific origins with the `ALLOWED_ORIGINS` parameter
 - Specify headers to by forwarded (`FORWARD_HEADERS`)
 - Preflight (OPTIONS) support, JSON/text/binary response handling
 
@@ -19,7 +20,7 @@ A proxy application for PeopleForce that can be easily deployed on Netlify.
 
 ## ⚙️ Configuration
 
-For development, place these in your .env.local file 
+For development, define these variables in your .env.local file 
 
 When deploying to Netlify, set these in **Project Configuration → Environment variables**:
 
