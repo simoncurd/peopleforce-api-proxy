@@ -1,9 +1,10 @@
-// A safe, configurable proxy for browser apps.
+// A safe, configurable proxy for browser apps calling PeopleForce API.
 // Features:
 // - CORS allowlist via ALLOWED_ORIGINS
+// - endpoint allowlist via ALLOWED_PATHS
 // - Restrict outbound target with UPSTREAM_BASE (required by default)
 // - Forward selected headers only (FORWARD_HEADERS)
-// - Optional secret injection (FORWARD_AUTH_HEADER / FORWARD_AUTH_VALUE)
+// - API Key injection on server side (PEOPLEFORCE_API_KEY)
 // - Handles preflight (OPTIONS), common methods, and JSON/text bodies
 // - Basic binary passthrough for common types
 
