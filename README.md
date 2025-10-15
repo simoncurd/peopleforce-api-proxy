@@ -25,7 +25,7 @@ For development, place these in your .env.local file
 When deploying, set these in **Project Configuration → Environment variables** on Netlify:
 
 | Variable | Required | Notes |
-|---|---|---|---|
+|---|---|---|
 | `UPSTREAM_BASE` | Optional | Default is: `https://app.peopleforce.io`  |
 | `ALLOWED_ORIGINS` | Recommended | Use this to define a comma-separated list of sites that will be allowed to use this function, or `*` in dev |
 | `FORWARD_HEADERS` | Optional |  Incoming headers to pass upstream  such as `authorization,accept-language`. Default is `Accept` |
