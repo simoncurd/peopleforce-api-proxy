@@ -1,0 +1,13 @@
+{
+    "name": "my-netlify-proxy",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+      "dev": "netlify dev --no-open",
+      "deploy": "netlify deploy --prod"
+    },
+    "devDependencies": {
+      "netlify-cli": "^17.33.0"
+    }
+  }

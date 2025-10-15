@@ -1,0 +1,24 @@
+[build]
+  # No build needed for plain functions, but keep this for future frontends.
+  command = ""
+  publish = "."
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = []
+
+# Optional: map a nice path to the function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/proxy/:splat"
+  status = 200
+  force = true
+
+
+# CORS preflight caching (tune to your needs)
+[[headers]]
+  for = "/api/*"
+  values = { Access-Control-Max-Age = "600" }
+
+# Environment variables are now set in Netlify dashboard
+# For local development, create a .env.local file using env.template as a guide
